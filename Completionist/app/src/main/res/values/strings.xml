@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Completionist</string>
+    <string name="buttonAddNewTask">New Task</string>
+    <string name="task_title_new">Task:</string>
+    <string name="task_description_new">Additional Notes:</string>
+    <string name="button_confirm_add">Add</string>
+    <string name="title_activity_view_task">ViewTaskActivity</string>
+</resources>
