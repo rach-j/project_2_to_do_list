@@ -21,6 +21,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     private DatabaseHelper db;
     TextView textViewTaskTitle, textViewTaskDescription, textViewCompletionStatus;
     String completionStatus;
+    Task selectedTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
 
         Intent intent = getIntent();
-        Task selectedTask = (Task) intent.getSerializableExtra("task");
+        this.selectedTask = (Task) intent.getSerializableExtra("task");
         Log.d("TaskActivity", selectedTask.getTaskTitle());
 
         textViewTaskTitle = findViewById(R.id.taskTitleDetails);
@@ -50,8 +51,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     }
 
     public void onDeleteItemClicked(View view) {
-        Intent intent = getIntent();
-        final Task selectedTask = (Task) intent.getSerializableExtra("task");
+        final Task selectedTask = this.selectedTask;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final Context context = this;
@@ -78,19 +78,12 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
-//        db.deleteEntry(selectedTask.getId());
-//        Intent intent2 = new Intent(this, MainActivity.class);
-//        startActivity(intent2);
     }
-//    Is this the best method?
+
 
     public void onEditItemClicked(View view) {
-        Intent intent = getIntent();
-        Task task = (Task) intent.getSerializableExtra("task");
-//        Possible to put above in function?
         Intent intent2 = new Intent(this, EditTaskActivity.class);
-        intent2.putExtra("task", task);
+        intent2.putExtra("task", this.selectedTask);
         startActivity(intent2);
     }
 }

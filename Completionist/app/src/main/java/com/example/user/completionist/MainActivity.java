@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private void loadEntriesFromDatabase() {
         Cursor cursor = db.getAllTasks();
 
+        taskList = new ArrayList<>();
+
         if (cursor.moveToFirst()) {
             do {
                 taskList.add(new Task(
@@ -57,10 +59,11 @@ public class MainActivity extends AppCompatActivity {
     public void onCheckBoxClicked(View view) {
         Task task = (Task) view.getTag();
                 if (db.markAsComplete(task.getId())) {
-                    Toast.makeText(this, "Task marked as complete", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.putExtra("task", task);
-                    startActivity(intent);
+                    loadEntriesFromDatabase();
+//                    Toast.makeText(this, "Task marked as complete", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(this, MainActivity.class);
+//                    intent.putExtra("task", task);
+//                    startActivity(intent);
 //                    Is there a better way to prevent reticking other than refreshing page?
                 } else {
                     Toast.makeText(this, "Error: task not marked as complete", Toast.LENGTH_SHORT).show();

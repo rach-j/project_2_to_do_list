@@ -89,7 +89,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     boolean deleteEntry(int id) {
 
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-        return sqLiteDatabase.delete(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[] {String.valueOf(id)}) > 0;
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[] {String.valueOf(id)}) > 0;
+    }
+
+    boolean editEntry(int id, String title, String description) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry._ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+
+        cursor.moveToFirst();
+
+        int completionStatusID = cursor.getColumnIndex(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS);
+
+        Integer completionStatus = cursor.getInt(completionStatusID);
+
+        ContentValues values = new ContentValues();
+
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE, title);
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION, description);
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS, completionStatus);
+
+        return db.update(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, values, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[]{String.valueOf(id)}) > 0;
     }
 }

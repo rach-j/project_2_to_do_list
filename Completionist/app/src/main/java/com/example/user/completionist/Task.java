@@ -11,8 +11,8 @@ import java.io.Serializable;
 public class Task implements Serializable {
     int id;
 //    Easier to call string later on - is there rational for using int?
-    String taskTitle, taskDescription;
-    Integer completionStatus;
+    private String taskTitle, taskDescription;
+    private Integer completionStatus;
 
     public Task(int id, String taskTitle, String taskDescription, Integer completionStatus) {
         this.id = id;
