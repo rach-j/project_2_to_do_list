@@ -7,4 +7,8 @@
     <string name="title_activity_view_task">ViewTaskActivity</string>
     <string name="complete_status">Complete</string>
     <string name="not_complete_status">Not Yet Complete</string>
+    <string name="delete_button">Delete</string>
+    <string name="edit_button">Edit</string>
+    <string name="title_activity_edit_task">EditTaskActivity</string>
+    <string name="save_button">Save</string>
 </resources>

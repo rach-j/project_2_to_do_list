@@ -86,4 +86,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return db.update(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, values, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[]{String.valueOf(id)}) > 0;
     }
+
+    boolean deleteEntry(int id) {
+
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        return sqLiteDatabase.delete(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[] {String.valueOf(id)}) > 0;
+    }
 }

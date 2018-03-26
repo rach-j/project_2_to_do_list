@@ -13,16 +13,20 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/taskTitleDetails"
+        <EditText
+            android:id="@+id/editTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textShortMessage"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/taskDescriptionDetails"
+        <EditText
+            android:id="@+id/editTaskDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textShortMessage|textLongMessage" />
 
         <TextView
             android:id="@+id/taskStatusDetails"
@@ -30,18 +34,10 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/editButton"
+            android:id="@+id/saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onEditItemClicked"
-            android:text="@string/edit_button" />
-
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onDeleteItemClicked"
-            android:text="@string/delete_button" />
+            android:text="@string/save_button" />
 
     </LinearLayout>
 
