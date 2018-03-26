@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.service.autofill.FillEventHistory;
+import android.util.Log;
 
 /**
  * Created by user on 24/03/2018.
@@ -61,5 +63,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     Cursor getAllTasks() {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME, null);
+    }
+
+    boolean markAsComplete(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry._ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
+
+        cursor.moveToFirst();
+
+        int titleID = cursor.getColumnIndex(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE);
+        int descriptionID = cursor.getColumnIndex(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION);
+        String title = cursor.getString(titleID);
+        String description = cursor.getString(descriptionID);
+
+        ContentValues values = new ContentValues();
+
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE, title);
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION, description);
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS, 1);
+
+        return db.update(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, values, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[]{String.valueOf(id)}) > 0;
     }
 }

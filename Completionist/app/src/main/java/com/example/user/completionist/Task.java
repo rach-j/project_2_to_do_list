@@ -1,10 +1,14 @@
 package com.example.user.completionist;
 
+import android.widget.Toast;
+
+import java.io.Serializable;
+
 /**
  * Created by user on 24/03/2018.
  */
 
-public class Task {
+public class Task implements Serializable {
     int id;
 //    Easier to call string later on - is there rational for using int?
     String taskTitle, taskDescription;
@@ -34,10 +38,14 @@ public class Task {
     }
 
     public boolean getCompletionStatusForCheckBox() {
-        if(getCompletionStatus() == 0) {
+        if (getCompletionStatus() == 0) {
             return false;
         } else {
             return true;
         }
+    }
+
+    public void flipCheckBox() {
+        this.completionStatus = (this.completionStatus == 0) ? 1 : 0;
     }
 }

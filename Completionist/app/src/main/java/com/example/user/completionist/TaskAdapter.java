@@ -1,14 +1,18 @@
 package com.example.user.completionist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -29,12 +33,13 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         this.context = context;
         this.resource = resource;
         this.taskList = taskList;
+        this.db = db;
     }
 
     @Override
-    public View getView(int position, @Nullable View listOfTasksView, @NonNull ViewGroup parent) {
+    public View getView(int position, View listOfTasksView, ViewGroup parent) {
 
-        Task currentTask = taskList.get(position);
+        Task currentTask = getItem(position);
 
         if(listOfTasksView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
@@ -42,10 +47,20 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }
 
         TextView textViewTaskTitle = listOfTasksView.findViewById(R.id.taskTitle);
-        CheckBox checkBoxForCompletion = listOfTasksView.findViewById(R.id.completedCheckBox);
+        final CheckBox checkBoxForCompletion = listOfTasksView.findViewById(R.id.completedCheckBox);
 
         textViewTaskTitle.setText(currentTask.getTaskTitle());
         checkBoxForCompletion.setChecked(currentTask.getCompletionStatusForCheckBox());
+
+        if(checkBoxForCompletion.isChecked()) {
+            checkBoxForCompletion.setEnabled(false);
+        } else {
+            checkBoxForCompletion.setEnabled(true);
+        }
+
+        listOfTasksView.setTag(currentTask);
+        checkBoxForCompletion.setTag(currentTask);
+
 
         listOfTasksView.setTag(currentTask);
 
