@@ -45,10 +45,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    boolean addTask(String taskTitle, String taskDescription, Integer priority) {
+    public boolean addTask(String taskTitle, String taskDescription, Integer priority) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
+
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE, taskTitle);
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION, taskDescription);
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS, 0);
@@ -65,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME, null);
     }
 
-    boolean markAsComplete(int id) {
+    public boolean markAsComplete(int id) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -75,14 +76,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.update(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, values, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[]{String.valueOf(id)}) > 0;
     }
 
-    boolean deleteEntry(int id) {
-
+    public boolean deleteEntry(int id) {
         SQLiteDatabase db = getWritableDatabase();
         return db.delete(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[] {String.valueOf(id)}) > 0;
     }
 
-    boolean editEntry(int id, String title, String description, Integer priority) {
-
+    public boolean editEntry(int id, String title, String description, Integer priority) {
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry._ID + " = ?";
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
@@ -103,19 +102,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.update(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, values, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[]{String.valueOf(id)}) > 0;
     }
 
-    Cursor getAllTasksOrderedByPriority() {
+    public Cursor getAllTasksOrderedByPriority() {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " ASC";
         return db.rawQuery(query, null);
     }
 
-    Cursor getOnlyIncompleteTasks() {
+    public Cursor getOnlyIncompleteTasks() {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " = ? ";
         return db.rawQuery(query, new String[]{String.valueOf(0)});
     }
 
-    Cursor getOnlyIncompleteTasksOrderedByPriority() {
+    public Cursor getOnlyIncompleteTasksOrderedByPriority() {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " = ? "  + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " ASC";
         return db.rawQuery(query, new String[]{String.valueOf(0)});

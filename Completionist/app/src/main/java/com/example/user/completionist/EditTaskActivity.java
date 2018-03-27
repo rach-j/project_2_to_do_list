@@ -15,7 +15,6 @@ public class EditTaskActivity extends AppCompatActivity {
     String completionStatus;
     EditText editTextTaskTitle, editTextTaskDescription;
     Spinner priorityStatus;
-//    int defaultPriorityPosition;
     TextView textViewTaskStatus;
     Task task;
 
@@ -26,9 +25,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         this.task = (Task) intent.getSerializableExtra("task");
-
         db = new DatabaseHelper(this);
-
         editTextTaskTitle = findViewById(R.id.editTaskTitle);
         editTextTaskDescription = findViewById(R.id.editTaskDescription);
         priorityStatus = findViewById(R.id.prioritySpinnerEdit);
@@ -40,7 +37,7 @@ public class EditTaskActivity extends AppCompatActivity {
             completionStatus = getResources().getString(R.string.not_complete_status);
         }
 
-        editTextTaskTitle.setText(this.task.getTaskTitle());
+        editTextTaskTitle.setText(task.getTaskTitle());
         editTextTaskDescription.setText(task.getTaskDescription());
         priorityStatus.setSelection(task.getPriorityStatus());
         textViewTaskStatus.setText(completionStatus);
@@ -51,12 +48,11 @@ public class EditTaskActivity extends AppCompatActivity {
         String description = editTextTaskDescription.getText().toString().trim();
         Integer priority = priorityStatus.getSelectedItemPosition();
 
-        if(db.editEntry(this.task.getId(), title, description, priority)) {
+        if(db.editEntry(task.getId(), title, description, priority)) {
             Toast.makeText(this, "Task Updated", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-//            finish();
         } else {
             Toast.makeText(this, "Error: Task Not Updated", Toast.LENGTH_LONG).show();
         }

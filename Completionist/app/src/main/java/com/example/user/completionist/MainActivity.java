@@ -4,23 +4,19 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseHelper db;
-    private List<Task> taskList;
-    private ListView listView;
-    private Button addNewButton;
-    private ToggleButton priorityToggleButton, viewAllToggleButton;
+    DatabaseHelper db;
+    List<Task> taskList;
+    ListView listView;
+    ToggleButton priorityToggleButton, viewAllToggleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,77 +26,38 @@ public class MainActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
         taskList = new ArrayList<>();
         listView = findViewById(R.id.listViewTasks);
-        addNewButton = findViewById(R.id.buttonAddNewTask);
-
-//        loadEntriesFromDatabase();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        priorityToggleButton = findViewById(R.id.togglePriorityOrder);
-        viewAllToggleButton = findViewById(R.id.toggleCompleteView);
-        if (priorityToggleButton.isChecked()) {
-            if (viewAllToggleButton.isChecked()) {
-                loadEntriesFromDatabaseInPriorityOrder();
-            } else {
-                loadOnlyIncompleteEntriesInPriorityOrder();
-            }
-        } else {
-            if (viewAllToggleButton.isChecked()) {
-                loadEntriesFromDatabase();
-            } else {
-                loadOnlyIncompleteEntries();
-            }
-        }
+        checkToggleStatusAndLoadEntries();
     }
-
 
     private void loadEntriesFromDatabase() {
         Cursor cursor = db.getAllTasks();
+        setUpAdapterAndRun(cursor);
+   }
 
-        taskList = new ArrayList<>();
+    private void loadEntriesFromDatabaseInPriorityOrder() {
+        Cursor cursor = db.getAllTasksOrderedByPriority();
+        setUpAdapterAndRun(cursor);
+    }
 
-        if (cursor.moveToFirst()) {
-            do {
-                taskList.add(new Task(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getInt(3),
-                        cursor.getInt(4)
-                ));
-            } while (cursor.moveToNext());
+    private void loadOnlyIncompleteEntries() {
+        Cursor cursor = db.getOnlyIncompleteTasks();
+        setUpAdapterAndRun(cursor);
+    }
 
-            TaskAdapter adapter = new TaskAdapter(this, R.layout.list_layout_tasks, taskList, db);
-            listView.setAdapter(adapter);
-        }
+    private void loadOnlyIncompleteEntriesInPriorityOrder() {
+        Cursor cursor = db.getOnlyIncompleteTasksOrderedByPriority();
+        setUpAdapterAndRun(cursor);
     }
 
     public void onCheckBoxClicked(View view) {
         Task task = (Task) view.getTag();
                 if (db.markAsComplete(task.getId())) {
-//                    priorityToggleButton = findViewById(R.id.togglePriorityOrder);
-//                    if(priorityToggleButton.isChecked()) {
-//                        loadEntriesFromDatabaseInPriorityOrder();
-//                    } else {
-//                        loadEntriesFromDatabase();
-//                    }
-                    priorityToggleButton = findViewById(R.id.togglePriorityOrder);
-                    viewAllToggleButton = findViewById(R.id.toggleCompleteView);
-                    if (priorityToggleButton.isChecked()) {
-                        if (viewAllToggleButton.isChecked()) {
-                            loadEntriesFromDatabaseInPriorityOrder();
-                        } else {
-                            loadOnlyIncompleteEntriesInPriorityOrder();
-                        }
-                    } else {
-                        if (viewAllToggleButton.isChecked()) {
-                            loadEntriesFromDatabase();
-                        } else {
-                            loadOnlyIncompleteEntries();
-                        }
-                    }
+                    checkToggleStatusAndLoadEntries();
                     Toast.makeText(this, "Task marked as complete", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Error: task not marked as complete", Toast.LENGTH_SHORT).show();
@@ -114,90 +71,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void onListItemClicked(View listItem) {
         Task selectedTask = (Task) listItem.getTag();
+
         Intent intent = new Intent(this, ViewTaskActivity.class);
         intent.putExtra("task", selectedTask);
-
         startActivity(intent);
-        if(selectedTask == null) {
-            Log.d("tagError", "getTag or setTag not working");
-        }
     }
 
-    private void loadEntriesFromDatabaseInPriorityOrder() {
-        Cursor cursor = db.getAllTasksOrderedByPriority();
-
-        taskList = new ArrayList<>();
-
-        if (cursor.moveToFirst()) {
-            do {
-                taskList.add(new Task(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getInt(3),
-                        cursor.getInt(4)
-                ));
-            } while (cursor.moveToNext());
-
-            TaskAdapter adapter = new TaskAdapter(this, R.layout.list_layout_tasks, taskList, db);
-            listView.setAdapter(adapter);
-        }
-    }
 
     public void onPriorityToggleButtonClicked(View view) {
-//        priorityToggleButton = findViewById(R.id.togglePriorityOrder);
-//        if(priorityToggleButton.isChecked()) {
-//            loadEntriesFromDatabaseInPriorityOrder();
-//        } else {
-//            loadEntriesFromDatabase();
-//        }
-        priorityToggleButton = findViewById(R.id.togglePriorityOrder);
-        viewAllToggleButton = findViewById(R.id.toggleCompleteView);
-        if (priorityToggleButton.isChecked()) {
-            if (viewAllToggleButton.isChecked()) {
-                loadEntriesFromDatabaseInPriorityOrder();
-            } else {
-                loadOnlyIncompleteEntriesInPriorityOrder();
-            }
-        } else {
-            if (viewAllToggleButton.isChecked()) {
-                loadEntriesFromDatabase();
-            } else {
-                loadOnlyIncompleteEntries();
-            }
-        }
-    }
-
-    private void loadOnlyIncompleteEntries() {
-        Cursor cursor = db.getOnlyIncompleteTasks();
-
-        taskList = new ArrayList<>();
-
-        if (cursor.moveToFirst()) {
-            do {
-                taskList.add(new Task(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getInt(3),
-                        cursor.getInt(4)
-                ));
-            } while (cursor.moveToNext());
-
-            TaskAdapter adapter = new TaskAdapter(this, R.layout.list_layout_tasks, taskList, db);
-            listView.setAdapter(adapter);
-        }
-
+        checkToggleStatusAndLoadEntries();
     }
 
     public void onViewAllToggleButtonClicked(View view) {
+        checkToggleStatusAndLoadEntries();
+    }
 
-//        viewAllToggleButton = findViewById(R.id.toggleCompleteView);
-//        if(viewAllToggleButton.isChecked()) {
-//            loadEntriesFromDatabase();
-//        } else {
-//            loadOnlyIncompleteEntries();
-//        }
+    public void checkToggleStatusAndLoadEntries() {
         priorityToggleButton = findViewById(R.id.togglePriorityOrder);
         viewAllToggleButton = findViewById(R.id.toggleCompleteView);
         if (priorityToggleButton.isChecked()) {
@@ -215,9 +104,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void loadOnlyIncompleteEntriesInPriorityOrder() {
-        Cursor cursor = db.getOnlyIncompleteTasksOrderedByPriority();
-
+    public void setUpAdapterAndRun(Cursor cursor) {
         taskList = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
