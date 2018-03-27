@@ -13,6 +13,13 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <TextView
+            android:id="@+id/taskTitleEdit"
+            android:labelFor="@+id/editTaskTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/task_title_new" />
+
         <EditText
             android:id="@+id/editTaskTitle"
             android:layout_width="match_parent"
@@ -20,6 +27,13 @@
             android:ems="10"
             android:inputType="textShortMessage"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/taskDescriptionEdit"
+            android:labelFor="@+id/editTaskDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/task_description_new" />
 
         <EditText
             android:id="@+id/editTaskDescription"

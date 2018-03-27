@@ -18,7 +18,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"
-            android:text="TextView" />
+            android:layout_toStartOf="@+id/completedCheckBox"/>
 
         <CheckBox
             android:id="@+id/completedCheckBox"

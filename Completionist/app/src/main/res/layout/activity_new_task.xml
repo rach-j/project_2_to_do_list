@@ -14,9 +14,9 @@
 
         <TextView
             android:id="@+id/taskTitleNew"
+            android:labelFor="@+id/titleInputNew"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoText="false"
             android:text="@string/task_title_new"
             android:textStyle="bold" />
 
@@ -29,6 +29,7 @@
 
         <TextView
             android:id="@+id/taskDescriptionNew"
+            android:labelFor="@+id/descriptionInputNew"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/task_description_new" />
