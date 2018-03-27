@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,8 @@ public class EditTaskActivity extends AppCompatActivity {
     DatabaseHelper db;
     String completionStatus;
     EditText editTextTaskTitle, editTextTaskDescription;
+    Spinner priorityStatus;
+    int defaultPriorityPosition;
     TextView textViewTaskStatus;
     Task task;
 
@@ -28,6 +31,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
         editTextTaskTitle = findViewById(R.id.editTaskTitle);
         editTextTaskDescription = findViewById(R.id.editTaskDescription);
+        priorityStatus = findViewById(R.id.prioritySpinnerEdit);
         textViewTaskStatus = findViewById(R.id.taskStatusDetails);
 
         if (task.getCompletionStatus() == 1) {
@@ -36,22 +40,33 @@ public class EditTaskActivity extends AppCompatActivity {
             completionStatus = getResources().getString(R.string.not_complete_status);
         }
 
+        if(task.getPriorityStatus().equals("High")) {
+            defaultPriorityPosition = 1;
+        } else if (task.getPriorityStatus().equals("Medium")) {
+            defaultPriorityPosition = 2;
+        } else if (task.getPriorityStatus().equals(("Low"))) {
+            defaultPriorityPosition = 3;
+        } else {
+            defaultPriorityPosition = 0;
+        }
+
         editTextTaskTitle.setText(this.task.getTaskTitle());
         editTextTaskDescription.setText(task.getTaskDescription());
+        priorityStatus.setSelection(defaultPriorityPosition);
         textViewTaskStatus.setText(completionStatus);
     }
 
     public void onSaveButtonClicked(View view) {
         String title = editTextTaskTitle.getText().toString().trim();
         String description = editTextTaskDescription.getText().toString().trim();
+        String priority = priorityStatus.getSelectedItem().toString();
 
-        if(db.editEntry(this.task.getId(), title, description)) {
+        if(db.editEntry(this.task.getId(), title, description, priority)) {
             Toast.makeText(this, "Task Updated", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Error: Task Not Updated", Toast.LENGTH_LONG).show();
-
         }
     }
 }

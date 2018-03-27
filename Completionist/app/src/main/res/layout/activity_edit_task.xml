@@ -43,6 +43,18 @@
             android:inputType="textShortMessage|textLongMessage" />
 
         <TextView
+            android:id="@+id/priorityStatusEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/task_priority_new" />
+
+        <Spinner
+            android:id="@+id/prioritySpinnerEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/priorities" />
+
+        <TextView
             android:id="@+id/taskStatusDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

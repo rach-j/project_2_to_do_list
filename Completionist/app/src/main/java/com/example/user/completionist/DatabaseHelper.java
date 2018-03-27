@@ -93,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[] {String.valueOf(id)}) > 0;
     }
 
-    boolean editEntry(int id, String title, String description) {
+    boolean editEntry(int id, String title, String description, String priority) {
 
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry._ID + " = ?";
@@ -110,6 +110,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE, title);
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION, description);
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS, completionStatus);
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS, priority);
 
         return db.update(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, values, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[]{String.valueOf(id)}) > 0;
     }
