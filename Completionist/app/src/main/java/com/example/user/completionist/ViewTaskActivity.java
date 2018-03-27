@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     private DatabaseHelper db;
     TextView textViewTaskTitle, textViewTaskDescription, textViewCompletionStatus, textViewPriorityStatus;
     String completionStatus, priorityStatus;
+    Button editButton;
     Task selectedTask;
 
     @Override
@@ -29,10 +31,11 @@ public class ViewTaskActivity extends AppCompatActivity {
         this.selectedTask = (Task) intent.getSerializableExtra("task");
         Log.d("TaskActivity", selectedTask.getTaskTitle());
 
-        textViewTaskTitle = findViewById(R.id.taskTitleDetails);
-        textViewTaskDescription = findViewById(R.id.taskDescriptionDetails);
-        textViewPriorityStatus = findViewById(R.id.taskPriorityDetails);
-        textViewCompletionStatus = findViewById(R.id.taskStatusDetails);
+        textViewTaskTitle = findViewById(R.id.viewActivityTextViewTaskTitle);
+        textViewTaskDescription = findViewById(R.id.viewActivityTextViewTaskDescription);
+        textViewPriorityStatus = findViewById(R.id.viewActivityTextViewPriorityStatus);
+        textViewCompletionStatus = findViewById(R.id.viewActivityTextViewCompletionStatus);
+        editButton = findViewById(R.id.viewActivityButtonEdit);
 
         if (selectedTask.getCompletionStatus() == 1) {
             completionStatus = getResources().getString(R.string.complete_status);
@@ -54,6 +57,13 @@ public class ViewTaskActivity extends AppCompatActivity {
         textViewTaskDescription.setText(selectedTask.getTaskDescription());
         textViewPriorityStatus.setText(priorityStatus);
         textViewCompletionStatus.setText(completionStatus);
+
+        if(selectedTask.getCompletionStatusForCheckBox()) {
+            editButton.setEnabled(false);
+        } else {
+            editButton.setEnabled(true);
+        }
+//        Can't edit completed tasks
     }
 
     public void onDeleteItemClicked(View view) {

@@ -12,7 +12,7 @@
         >
 
         <ImageView
-            android:id="@+id/priorityImage"
+            android:id="@+id/listLayoutPriorityIcon"
             android:layout_width="20sp"
             android:layout_height="20sp"
             android:layout_alignParentBottom="false"
@@ -24,23 +24,23 @@
             android:padding="5dp" />
 
         <TextView
-            android:id="@+id/taskTitle"
+            android:id="@+id/listLayoutTextViewTaskTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="false"
             android:layout_centerVertical="true"
             android:layout_marginTop="20dp"
-            android:layout_toEndOf="@id/priorityImage"
-            android:layout_toStartOf="@+id/completedCheckBox" />
+            android:layout_toEndOf="@id/listLayoutPriorityIcon"
+            android:layout_toStartOf="@+id/listLayoutCheckBoxCompletionStatus" />
 
         <CheckBox
-            android:id="@+id/completedCheckBox"
+            android:id="@+id/listLayoutCheckBoxCompletionStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/taskTitle"
+            android:layout_alignBaseline="@+id/listLayoutTextViewTaskTitle"
             android:layout_alignParentBottom="false"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/taskTitle"
+            android:layout_alignTop="@+id/listLayoutTextViewTaskTitle"
             android:layout_alignWithParentIfMissing="false"
             android:layout_centerHorizontal="false"
             android:layout_centerInParent="false"

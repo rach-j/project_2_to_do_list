@@ -26,10 +26,10 @@ public class EditTaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.task = (Task) intent.getSerializableExtra("task");
         db = new DatabaseHelper(this);
-        editTextTaskTitle = findViewById(R.id.editTaskTitle);
-        editTextTaskDescription = findViewById(R.id.editTaskDescription);
-        priorityStatus = findViewById(R.id.prioritySpinnerEdit);
-        textViewTaskStatus = findViewById(R.id.taskStatusDetails);
+        editTextTaskTitle = findViewById(R.id.editActivityEditTextTaskTitle);
+        editTextTaskDescription = findViewById(R.id.editActivityEditTextTaskDescription);
+        priorityStatus = findViewById(R.id.editActivitySpinnerPriorityStatus);
+        textViewTaskStatus = findViewById(R.id.editActivityTextViewCompletionStatus);
 
         if (task.getCompletionStatus() == 1) {
             completionStatus = getResources().getString(R.string.complete_status);
@@ -40,6 +40,9 @@ public class EditTaskActivity extends AppCompatActivity {
         editTextTaskTitle.setText(task.getTaskTitle());
         editTextTaskDescription.setText(task.getTaskDescription());
         priorityStatus.setSelection(task.getPriorityStatus());
+//      Is this okay? In my string file I've got an array of priority levels where the position in
+// the array is the same as the rating in the table (so e.g. high is level 0 in the table and also
+// position 0 in the array), but that's just because I've set it up that way. Is there a better way?
         textViewTaskStatus.setText(completionStatus);
     }
 

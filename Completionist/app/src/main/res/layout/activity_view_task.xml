@@ -14,35 +14,35 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/taskTitleDetails"
+            android:id="@+id/viewActivityTextViewTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/taskDescriptionDetails"
+            android:id="@+id/viewActivityTextViewTaskDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/taskPriorityDetails"
+            android:id="@+id/viewActivityTextViewPriorityStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/taskStatusDetails"
+            android:id="@+id/viewActivityTextViewCompletionStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/editButton"
+            android:id="@+id/viewActivityButtonEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onEditItemClicked"
             android:text="@string/edit_button" />
 
         <Button
-            android:id="@+id/deleteButton"
+            android:id="@+id/viewActivityButtonDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onDeleteItemClicked"

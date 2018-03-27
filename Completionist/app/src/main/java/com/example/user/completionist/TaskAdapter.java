@@ -43,9 +43,9 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 //        }
 //        Need to do this so colours for priority are correct - way around to retain efficiency?
 
-        TextView textViewTaskTitle = listOfTasksView.findViewById(R.id.taskTitle);
-        ImageView image = listOfTasksView.findViewById(R.id.priorityImage);
-        final CheckBox checkBoxForCompletion = listOfTasksView.findViewById(R.id.completedCheckBox);
+        TextView textViewTaskTitle = listOfTasksView.findViewById(R.id.listLayoutTextViewTaskTitle);
+        ImageView image = listOfTasksView.findViewById(R.id.listLayoutPriorityIcon);
+        final CheckBox checkBoxForCompletion = listOfTasksView.findViewById(R.id.listLayoutCheckBoxCompletionStatus);
 
         textViewTaskTitle.setText(currentTask.getTaskTitle());
 

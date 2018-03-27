@@ -13,48 +13,48 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/taskTitleNew"
-            android:labelFor="@+id/titleInputNew"
+            android:id="@+id/newActivityTextViewTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/task_title_new"
+            android:labelFor="@+id/newActivityEditTextTaskTitle"
+            android:text="@string/task_header"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/titleInputNew"
+            android:id="@+id/newActivityEditTextTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textShortMessage" />
 
         <TextView
-            android:id="@+id/taskDescriptionNew"
-            android:labelFor="@+id/descriptionInputNew"
+            android:id="@+id/newActivityTextViewTaskDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/task_description_new" />
+            android:labelFor="@+id/newActivityEditTextTaskDescription"
+            android:text="@string/task_description_header" />
 
         <EditText
-            android:id="@+id/descriptionInputNew"
+            android:id="@+id/newActivityEditTextTaskDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textLongMessage" />
 
         <TextView
-            android:id="@+id/taskPriorityNew"
+            android:id="@+id/newActivityTextViewPriorityStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/task_priority_new" />
+            android:text="@string/task_priority_header" />
 
         <Spinner
-            android:id="@+id/prioritySpinner"
+            android:id="@+id/newActivitySpinnerPriorityStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/priorities" />
 
         <Button
-            android:id="@+id/buttonConfirmAdd"
+            android:id="@+id/newActivitySaveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClick"

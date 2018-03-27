@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkToggleStatusAndLoadEntries() {
-        priorityToggleButton = findViewById(R.id.togglePriorityOrder);
-        viewAllToggleButton = findViewById(R.id.toggleCompleteView);
+        priorityToggleButton = findViewById(R.id.mainActivityToggleButtonPriorityOrder);
+        viewAllToggleButton = findViewById(R.id.mainActivityToggleButtonViewAll);
         if (priorityToggleButton.isChecked()) {
             if (viewAllToggleButton.isChecked()) {
                 loadEntriesFromDatabaseInPriorityOrder();

@@ -14,31 +14,31 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/priorityToggleLabel"
+            android:id="@+id/mainActivityTextViewLabelForPriorityToggleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/priority_toggle_label"
-            app:layout_constraintEnd_toStartOf="@+id/togglePriorityOrder"
+            app:layout_constraintEnd_toStartOf="@+id/mainActivityToggleButtonPriorityOrder"
             app:layout_constraintHorizontal_bias="0.955"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ToggleButton
-            android:id="@+id/togglePriorityOrder"
+            android:id="@+id/mainActivityToggleButtonPriorityOrder"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginEnd="16dp"
             android:onClick="onPriorityToggleButtonClicked"
-            app:layout_constraintBottom_toTopOf="@+id/toggleCompleteView"
+            app:layout_constraintBottom_toTopOf="@+id/mainActivityToggleButtonViewAll"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.454" />
 
         <ToggleButton
-            android:id="@+id/toggleCompleteView"
+            android:id="@+id/mainActivityToggleButtonViewAll"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
@@ -48,14 +48,14 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/completeStatusToggleLable"
+            android:id="@+id/mainActivityTextViewLabelForViewAllToggleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/complete_status_toggle_label"
+            android:text="@string/show_all_toggle_label"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/toggleCompleteView" />
+            app:layout_constraintEnd_toStartOf="@+id/mainActivityToggleButtonViewAll" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -68,12 +68,12 @@
     </ListView>
 
     <Button
-        android:id="@+id/buttonAddNewTask"
+        android:id="@+id/mainActivityButtonAddNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:onClick="onAddTaskClicked"
-        android:text="@string/buttonAddNewTask"
+        android:text="@string/button_add_new_task"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
