@@ -1,7 +1,5 @@
 package com.example.user.completionist;
 
-import android.widget.Toast;
-
 import java.io.Serializable;
 
 /**
@@ -45,7 +43,7 @@ public class Task implements Serializable {
         }
     }
 
-    public void flipCheckBox() {
-        this.completionStatus = (this.completionStatus == 0) ? 1 : 0;
-    }
+//    public void flipCheckBox() {
+//        this.completionStatus = (this.completionStatus == 0) ? 1 : 0;
+//    }
 }

@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.service.autofill.FillEventHistory;
-import android.util.Log;
 
 /**
  * Created by user on 24/03/2018.
@@ -14,7 +12,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "to_do_list.db";
 
     private static final String SQL_CREATE_ENTRIES =
@@ -22,10 +20,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     LayoutOfSchemaContract.FeedEntry._ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                     LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE + " TEXT," +
                     LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION + " TEXT," +
-                    LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " INTEGER)";
+                    LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " INTEGER," +
+                    LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " TEXT)";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS" + LayoutOfSchemaContract.FeedEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
