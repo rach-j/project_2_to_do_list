@@ -53,11 +53,11 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         textViewTaskTitle.setText(currentTask.getTaskTitle());
 
-        if(currentTask.getPriorityStatus().equals("High")) {
+        if(currentTask.getPriorityStatus().equals(0)) {
             image.setImageResource(R.drawable.custom_circle_red);
-        } else if (currentTask.getPriorityStatus().equals("Medium")) {
+        } else if (currentTask.getPriorityStatus().equals(1)) {
             image.setImageResource(R.drawable.custom_circle_amber);
-        } else if (currentTask.getPriorityStatus().equals("Low")) {
+        } else if (currentTask.getPriorityStatus().equals(2)) {
             image.setImageResource(R.drawable.custom_circle_green);
         }
 

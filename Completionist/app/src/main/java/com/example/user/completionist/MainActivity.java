@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getInt(3),
-                        cursor.getString(4)
+                        cursor.getInt(4)
                 ));
             } while (cursor.moveToNext());
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getInt(3),
-                        cursor.getString(4)
+                        cursor.getInt(4)
                 ));
             } while (cursor.moveToNext());
 

@@ -15,7 +15,7 @@ public class EditTaskActivity extends AppCompatActivity {
     String completionStatus;
     EditText editTextTaskTitle, editTextTaskDescription;
     Spinner priorityStatus;
-    int defaultPriorityPosition;
+//    int defaultPriorityPosition;
     TextView textViewTaskStatus;
     Task task;
 
@@ -40,26 +40,16 @@ public class EditTaskActivity extends AppCompatActivity {
             completionStatus = getResources().getString(R.string.not_complete_status);
         }
 
-        if(task.getPriorityStatus().equals("High")) {
-            defaultPriorityPosition = 1;
-        } else if (task.getPriorityStatus().equals("Medium")) {
-            defaultPriorityPosition = 2;
-        } else if (task.getPriorityStatus().equals(("Low"))) {
-            defaultPriorityPosition = 3;
-        } else {
-            defaultPriorityPosition = 0;
-        }
-
         editTextTaskTitle.setText(this.task.getTaskTitle());
         editTextTaskDescription.setText(task.getTaskDescription());
-        priorityStatus.setSelection(defaultPriorityPosition);
+        priorityStatus.setSelection(task.getPriorityStatus());
         textViewTaskStatus.setText(completionStatus);
     }
 
     public void onSaveButtonClicked(View view) {
         String title = editTextTaskTitle.getText().toString().trim();
         String description = editTextTaskDescription.getText().toString().trim();
-        String priority = priorityStatus.getSelectedItem().toString();
+        Integer priority = priorityStatus.getSelectedItemPosition();
 
         if(db.editEntry(this.task.getId(), title, description, priority)) {
             Toast.makeText(this, "Task Updated", Toast.LENGTH_LONG).show();

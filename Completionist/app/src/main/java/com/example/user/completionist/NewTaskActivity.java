@@ -31,6 +31,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
         editPriorityStatus = findViewById(R.id.prioritySpinner);
         buttonConfirmAdd = findViewById(R.id.buttonConfirmAdd);
 
+        editPriorityStatus.setSelection(3);
         buttonConfirmAdd.setOnClickListener(this);
     }
 
@@ -41,7 +42,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
     private void addTask() {
         String taskTitle = editTextTaskTitle.getText().toString().trim();
         String taskDescription = editTextTaskDescription.getText().toString().trim();
-        String priorityStatus = editPriorityStatus.getSelectedItem().toString();
+        Integer priority = editPriorityStatus.getSelectedItemPosition();
 
         if (taskTitle.isEmpty()) {
             editTextTaskTitle.setError("Task cannot be empty");
@@ -49,7 +50,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
 
-        if (db.addTask(taskTitle, taskDescription, priorityStatus)) {
+        if (db.addTask(taskTitle, taskDescription, priority)) {
             Toast.makeText(this, "Task Added", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

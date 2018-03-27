@@ -19,9 +19,9 @@
     <string name="priority_icon_description">Priority Status</string>
     <string name="priority_toggle_label">Order By Priority:</string>
     <array name="priorities">
-        <item>No priority</item>
         <item>High</item>
         <item>Medium</item>
         <item>Low</item>
+        <item>No priority</item>
     </array>
 </resources>

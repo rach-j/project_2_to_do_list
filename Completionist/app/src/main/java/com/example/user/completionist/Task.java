@@ -9,10 +9,10 @@ import java.io.Serializable;
 public class Task implements Serializable {
     int id;
 //    Easier to call string later on - is there rational for using int?
-    private String taskTitle, taskDescription, priorityStatus;
-    private Integer completionStatus;
+    private String taskTitle, taskDescription;
+    private Integer completionStatus, priorityStatus;
 
-    public Task(int id, String taskTitle, String taskDescription, Integer completionStatus, String priorityStatus) {
+    public Task(int id, String taskTitle, String taskDescription, Integer completionStatus, Integer priorityStatus) {
         this.id = id;
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
@@ -36,7 +36,7 @@ public class Task implements Serializable {
         return this.completionStatus;
     }
 
-    public String getPriorityStatus() { return this.priorityStatus; }
+    public Integer getPriorityStatus() { return this.priorityStatus; }
 
     public boolean getCompletionStatusForCheckBox() {
         if (getCompletionStatus() == 0) {

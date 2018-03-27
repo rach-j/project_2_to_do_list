@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "to_do_list.db";
 
     private static final String SQL_CREATE_ENTRIES =
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE + " TEXT," +
                     LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION + " TEXT," +
                     LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " INTEGER," +
-                    LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " TEXT)";
+                    LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " INTEGER)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME;
@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    boolean addTask(String taskTitle, String taskDescription, String priority) {
+    boolean addTask(String taskTitle, String taskDescription, Integer priority) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -68,20 +68,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     boolean markAsComplete(int id) {
         SQLiteDatabase db = getWritableDatabase();
 
-        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry._ID + " = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
-
-        cursor.moveToFirst();
-
-        int titleID = cursor.getColumnIndex(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE);
-        int descriptionID = cursor.getColumnIndex(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION);
-        String title = cursor.getString(titleID);
-        String description = cursor.getString(descriptionID);
-
         ContentValues values = new ContentValues();
 
-        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE, title);
-        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION, description);
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS, 1);
 
         return db.update(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, values, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[]{String.valueOf(id)}) > 0;
@@ -93,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[] {String.valueOf(id)}) > 0;
     }
 
-    boolean editEntry(int id, String title, String description, String priority) {
+    boolean editEntry(int id, String title, String description, Integer priority) {
 
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry._ID + " = ?";

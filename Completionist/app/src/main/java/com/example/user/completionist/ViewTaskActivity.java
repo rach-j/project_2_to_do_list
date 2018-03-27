@@ -45,11 +45,11 @@ public class ViewTaskActivity extends AppCompatActivity {
             completionStatus = getResources().getString(R.string.not_complete_status);
         }
 
-        if(selectedTask.getPriorityStatus().equals("High")) {
+        if(selectedTask.getPriorityStatus().equals(0)) {
             priorityStatus = getResources().getString(R.string.high_priority);
-        } else if(selectedTask.getPriorityStatus().equals("Medium")) {
+        } else if(selectedTask.getPriorityStatus().equals(1)) {
             priorityStatus = getResources().getString(R.string.medium_priority);
-        } else if (selectedTask.getPriorityStatus().equals("Low")) {
+        } else if (selectedTask.getPriorityStatus().equals(2)) {
             priorityStatus = getResources().getString(R.string.low_priority);
         } else {
             priorityStatus = getResources().getString(R.string.no_priority);
