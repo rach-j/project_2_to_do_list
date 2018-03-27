@@ -16,6 +16,8 @@
     <string name="medium_priority">Medium Priority</string>
     <string name="low_priority">Low Priority</string>
     <string name="no_priority">Priority Status Not Set</string>
+    <string name="priority_icon_description">Priority Status</string>
+    <string name="priority_toggle_label">Order By Priority:</string>
     <array name="priorities">
         <item>No priority</item>
         <item>High</item>

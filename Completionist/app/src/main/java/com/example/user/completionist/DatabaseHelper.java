@@ -114,4 +114,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return db.update(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, values, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[]{String.valueOf(id)}) > 0;
     }
+
+    Cursor getAllTasksOrderedByPriority() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " ASC";
+        return db.rawQuery(query, null);
+    }
 }

@@ -78,4 +78,29 @@ public class MainActivity extends AppCompatActivity {
             Log.d("tagError", "getTag or setTag not working");
         }
     }
+
+    private void loadEntriesFromDatabaseInPriorityOrder() {
+        Cursor cursor = db.getAllTasksOrderedByPriority();
+
+        taskList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                taskList.add(new Task(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getString(4)
+                ));
+            } while (cursor.moveToNext());
+
+            TaskAdapter adapter = new TaskAdapter(this, R.layout.list_layout_tasks, taskList, db);
+            listView.setAdapter(adapter);
+        }
+    }
+
+    public void onPriorityToggleButtonClicked(View view) {
+        loadEntriesFromDatabaseInPriorityOrder();
+    }
 }
