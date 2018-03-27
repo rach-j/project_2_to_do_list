@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 /**
@@ -16,6 +17,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
 
     DatabaseHelper db;
     EditText editTextTaskTitle, editTextTaskDescription;
+    Spinner editPriorityStatus;
     Button buttonConfirmAdd;
 
     @Override
@@ -26,6 +28,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
         db = new DatabaseHelper(this);
         editTextTaskTitle = findViewById(R.id.titleInputNew);
         editTextTaskDescription = findViewById(R.id.descriptionInputNew);
+        editPriorityStatus = findViewById(R.id.prioritySpinner);
         buttonConfirmAdd = findViewById(R.id.buttonConfirmAdd);
 
         buttonConfirmAdd.setOnClickListener(this);
@@ -38,6 +41,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
     private void addTask() {
         String taskTitle = editTextTaskTitle.getText().toString().trim();
         String taskDescription = editTextTaskDescription.getText().toString().trim();
+        String priorityStatus = editPriorityStatus.getSelectedItem().toString();
 
         if (taskTitle.isEmpty()) {
             editTextTaskTitle.setError("Task cannot be empty");
@@ -45,7 +49,7 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
 
-        if (db.addTask(taskTitle, taskDescription)) {
+        if (db.addTask(taskTitle, taskDescription, priorityStatus)) {
             Toast.makeText(this, "Task Added", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

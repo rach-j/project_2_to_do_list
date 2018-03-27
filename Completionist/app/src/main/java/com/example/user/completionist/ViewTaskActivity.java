@@ -19,8 +19,8 @@ import org.w3c.dom.Text;
 public class ViewTaskActivity extends AppCompatActivity {
 
     private DatabaseHelper db;
-    TextView textViewTaskTitle, textViewTaskDescription, textViewCompletionStatus;
-    String completionStatus;
+    TextView textViewTaskTitle, textViewTaskDescription, textViewCompletionStatus, textViewPriorityStatus;
+    String completionStatus, priorityStatus;
     Task selectedTask;
 
     @Override
@@ -36,6 +36,7 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         textViewTaskTitle = findViewById(R.id.taskTitleDetails);
         textViewTaskDescription = findViewById(R.id.taskDescriptionDetails);
+        textViewPriorityStatus = findViewById(R.id.taskPriorityDetails);
         textViewCompletionStatus = findViewById(R.id.taskStatusDetails);
 
         if (selectedTask.getCompletionStatus() == 1) {
@@ -44,8 +45,19 @@ public class ViewTaskActivity extends AppCompatActivity {
             completionStatus = getResources().getString(R.string.not_complete_status);
         }
 
+        if(selectedTask.getPriorityStatus().equals("High")) {
+            priorityStatus = getResources().getString(R.string.high_priority);
+        } else if(selectedTask.getPriorityStatus().equals("Medium")) {
+            priorityStatus = getResources().getString(R.string.medium_priority);
+        } else if (selectedTask.getPriorityStatus().equals("Low")) {
+            priorityStatus = getResources().getString(R.string.low_priority);
+        } else {
+            priorityStatus = getResources().getString(R.string.no_priority);
+        }
+
         textViewTaskTitle.setText(selectedTask.getTaskTitle());
         textViewTaskDescription.setText(selectedTask.getTaskDescription());
+        textViewPriorityStatus.setText(priorityStatus);
         textViewCompletionStatus.setText(completionStatus);
 
     }

@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    boolean addTask(String taskTitle, String taskDescription) {
+    boolean addTask(String taskTitle, String taskDescription, String priority) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -53,6 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION, taskDescription);
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS, 0);
 //        Newly added  tasks default to not completed
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS, priority);
 
         return db.insert(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, null, values) != -1;
 //        .insert returns -1 if table is empty so above returns true if stuff has been added and

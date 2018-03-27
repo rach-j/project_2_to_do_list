@@ -11,4 +11,15 @@
     <string name="edit_button">Edit</string>
     <string name="title_activity_edit_task">EditTaskActivity</string>
     <string name="save_button">Save</string>
+    <string name="task_priority_new">Priority:</string>
+    <string name="high_priority">High Priority</string>
+    <string name="medium_priority">Medium Priority</string>
+    <string name="low_priority">Low Priority</string>
+    <string name="no_priority">Priority Status Not Set</string>
+    <array name="priorities">
+        <item>No priority</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </array>
 </resources>
