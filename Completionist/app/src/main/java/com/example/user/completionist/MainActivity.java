@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Task> taskList;
     private ListView listView;
     private Button addNewButton;
-    private ToggleButton priorityToggleButton;
+    private ToggleButton priorityToggleButton, viewAllToggleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +39,22 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         priorityToggleButton = findViewById(R.id.togglePriorityOrder);
-        if(priorityToggleButton.isChecked()) {
-            loadEntriesFromDatabaseInPriorityOrder();
+        viewAllToggleButton = findViewById(R.id.toggleCompleteView);
+        if (priorityToggleButton.isChecked()) {
+            if (viewAllToggleButton.isChecked()) {
+                loadEntriesFromDatabaseInPriorityOrder();
+            } else {
+                loadOnlyIncompleteEntriesInPriorityOrder();
+            }
         } else {
-            loadEntriesFromDatabase();
+            if (viewAllToggleButton.isChecked()) {
+                loadEntriesFromDatabase();
+            } else {
+                loadOnlyIncompleteEntries();
+            }
         }
     }
+
 
     private void loadEntriesFromDatabase() {
         Cursor cursor = db.getAllTasks();
@@ -70,11 +80,26 @@ public class MainActivity extends AppCompatActivity {
     public void onCheckBoxClicked(View view) {
         Task task = (Task) view.getTag();
                 if (db.markAsComplete(task.getId())) {
+//                    priorityToggleButton = findViewById(R.id.togglePriorityOrder);
+//                    if(priorityToggleButton.isChecked()) {
+//                        loadEntriesFromDatabaseInPriorityOrder();
+//                    } else {
+//                        loadEntriesFromDatabase();
+//                    }
                     priorityToggleButton = findViewById(R.id.togglePriorityOrder);
-                    if(priorityToggleButton.isChecked()) {
-                        loadEntriesFromDatabaseInPriorityOrder();
+                    viewAllToggleButton = findViewById(R.id.toggleCompleteView);
+                    if (priorityToggleButton.isChecked()) {
+                        if (viewAllToggleButton.isChecked()) {
+                            loadEntriesFromDatabaseInPriorityOrder();
+                        } else {
+                            loadOnlyIncompleteEntriesInPriorityOrder();
+                        }
                     } else {
-                        loadEntriesFromDatabase();
+                        if (viewAllToggleButton.isChecked()) {
+                            loadEntriesFromDatabase();
+                        } else {
+                            loadOnlyIncompleteEntries();
+                        }
                     }
                     Toast.makeText(this, "Task marked as complete", Toast.LENGTH_SHORT).show();
                 } else {
@@ -120,12 +145,94 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onPriorityToggleButtonClicked(View view) {
-
+//        priorityToggleButton = findViewById(R.id.togglePriorityOrder);
+//        if(priorityToggleButton.isChecked()) {
+//            loadEntriesFromDatabaseInPriorityOrder();
+//        } else {
+//            loadEntriesFromDatabase();
+//        }
         priorityToggleButton = findViewById(R.id.togglePriorityOrder);
-        if(priorityToggleButton.isChecked()) {
-            loadEntriesFromDatabaseInPriorityOrder();
+        viewAllToggleButton = findViewById(R.id.toggleCompleteView);
+        if (priorityToggleButton.isChecked()) {
+            if (viewAllToggleButton.isChecked()) {
+                loadEntriesFromDatabaseInPriorityOrder();
+            } else {
+                loadOnlyIncompleteEntriesInPriorityOrder();
+            }
         } else {
-            loadEntriesFromDatabase();
+            if (viewAllToggleButton.isChecked()) {
+                loadEntriesFromDatabase();
+            } else {
+                loadOnlyIncompleteEntries();
+            }
+        }
+    }
+
+    private void loadOnlyIncompleteEntries() {
+        Cursor cursor = db.getOnlyIncompleteTasks();
+
+        taskList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                taskList.add(new Task(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getInt(4)
+                ));
+            } while (cursor.moveToNext());
+
+            TaskAdapter adapter = new TaskAdapter(this, R.layout.list_layout_tasks, taskList, db);
+            listView.setAdapter(adapter);
+        }
+
+    }
+
+    public void onViewAllToggleButtonClicked(View view) {
+
+//        viewAllToggleButton = findViewById(R.id.toggleCompleteView);
+//        if(viewAllToggleButton.isChecked()) {
+//            loadEntriesFromDatabase();
+//        } else {
+//            loadOnlyIncompleteEntries();
+//        }
+        priorityToggleButton = findViewById(R.id.togglePriorityOrder);
+        viewAllToggleButton = findViewById(R.id.toggleCompleteView);
+        if (priorityToggleButton.isChecked()) {
+            if (viewAllToggleButton.isChecked()) {
+                loadEntriesFromDatabaseInPriorityOrder();
+            } else {
+                loadOnlyIncompleteEntriesInPriorityOrder();
+            }
+        } else {
+            if (viewAllToggleButton.isChecked()) {
+                loadEntriesFromDatabase();
+            } else {
+                loadOnlyIncompleteEntries();
+            }
+        }
+    }
+
+    private void loadOnlyIncompleteEntriesInPriorityOrder() {
+        Cursor cursor = db.getOnlyIncompleteTasksOrderedByPriority();
+
+        taskList = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                taskList.add(new Task(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getInt(4)
+                ));
+            } while (cursor.moveToNext());
+
+            TaskAdapter adapter = new TaskAdapter(this, R.layout.list_layout_tasks, taskList, db);
+            listView.setAdapter(adapter);
         }
     }
 }

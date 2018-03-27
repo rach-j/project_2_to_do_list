@@ -108,4 +108,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " ASC";
         return db.rawQuery(query, null);
     }
+
+    Cursor getOnlyIncompleteTasks() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " = ? ";
+        return db.rawQuery(query, new String[]{String.valueOf(0)});
+    }
+
+    Cursor getOnlyIncompleteTasksOrderedByPriority() {
+        SQLiteDatabase db = getReadableDatabase();
+        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " = ? "  + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " ASC";
+        return db.rawQuery(query, new String[]{String.valueOf(0)});
+    }
 }
