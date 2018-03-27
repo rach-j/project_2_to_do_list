@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="onListItemClicked">
@@ -10,15 +11,26 @@
         android:layout_height="wrap_content"
         >
 
+        <ImageView
+            android:id="@+id/priorityImage"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:contentDescription="priority_status"
+            android:padding="5dp" />
+
         <TextView
             android:id="@+id/taskTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"
-            android:layout_toStartOf="@+id/completedCheckBox"/>
+            android:layout_toEndOf="@id/priorityImage"
+            android:layout_toStartOf="@+id/completedCheckBox" />
 
         <CheckBox
             android:id="@+id/completedCheckBox"
@@ -31,9 +43,11 @@
             android:layout_alignWithParentIfMissing="false"
             android:layout_centerHorizontal="false"
             android:layout_centerInParent="false"
-            android:layout_marginEnd="21dp"
-            android:onClick="onCheckBoxClicked"
-            android:checked="true" />
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:checked="true"
+            android:onClick="onCheckBoxClicked" />
+
     </RelativeLayout>
 
 </android.widget.RelativeLayout>

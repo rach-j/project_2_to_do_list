@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,9 +48,19 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }
 
         TextView textViewTaskTitle = listOfTasksView.findViewById(R.id.taskTitle);
+        ImageView image = listOfTasksView.findViewById(R.id.priorityImage);
         final CheckBox checkBoxForCompletion = listOfTasksView.findViewById(R.id.completedCheckBox);
 
         textViewTaskTitle.setText(currentTask.getTaskTitle());
+
+        if(currentTask.getPriorityStatus().equals("High")) {
+            image.setImageResource(R.drawable.custom_circle_red);
+        } else if (currentTask.getPriorityStatus().equals("Medium")) {
+            image.setImageResource(R.drawable.custom_circle_amber);
+        } else if (currentTask.getPriorityStatus().equals("Low")) {
+            image.setImageResource(R.drawable.custom_circle_green);
+        }
+
         checkBoxForCompletion.setChecked(currentTask.getCompletionStatusForCheckBox());
 
         if(checkBoxForCompletion.isChecked()) {
