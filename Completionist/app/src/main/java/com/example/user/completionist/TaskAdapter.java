@@ -1,19 +1,14 @@
 package com.example.user.completionist;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -70,10 +65,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
             checkBoxForCompletion.setEnabled(true);
         }
 
-        listOfTasksView.setTag(currentTask);
         checkBoxForCompletion.setTag(currentTask);
-
-
         listOfTasksView.setTag(currentTask);
 
         return listOfTasksView;

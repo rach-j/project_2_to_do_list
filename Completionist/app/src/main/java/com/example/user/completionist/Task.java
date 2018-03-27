@@ -45,8 +45,4 @@ public class Task implements Serializable {
             return true;
         }
     }
-
-//    public void flipCheckBox() {
-//        this.completionStatus = (this.completionStatus == 0) ? 1 : 0;
-//    }
 }

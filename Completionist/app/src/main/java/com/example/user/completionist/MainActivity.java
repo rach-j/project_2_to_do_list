@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
     public void onCheckBoxClicked(View view) {
         Task task = (Task) view.getTag();
                 if (db.markAsComplete(task.getId())) {
-                    checkToggleStatusAndLoadEntries();
                     Toast.makeText(this, "Task marked as complete", Toast.LENGTH_SHORT).show();
+                    checkToggleStatusAndLoadEntries();
                 } else {
                     Toast.makeText(this, "Error: task not marked as complete", Toast.LENGTH_SHORT).show();
                 }

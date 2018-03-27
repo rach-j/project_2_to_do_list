@@ -5,16 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class ViewTaskActivity extends AppCompatActivity {
 
@@ -59,7 +54,6 @@ public class ViewTaskActivity extends AppCompatActivity {
         textViewTaskDescription.setText(selectedTask.getTaskDescription());
         textViewPriorityStatus.setText(priorityStatus);
         textViewCompletionStatus.setText(completionStatus);
-
     }
 
     public void onDeleteItemClicked(View view) {
@@ -75,8 +69,6 @@ public class ViewTaskActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(db.deleteEntry(selectedTask.getId())) {
                     Toast.makeText(context, "Task Deleted", Toast.LENGTH_SHORT).show();
-//                    Intent intent2 = new Intent(context, MainActivity.class);
-//                    startActivity(intent2);
                     finish();
                 }
             }
@@ -93,10 +85,9 @@ public class ViewTaskActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-
     public void onEditItemClicked(View view) {
-        Intent intent2 = new Intent(this, EditTaskActivity.class);
-        intent2.putExtra("task", this.selectedTask);
-        startActivity(intent2);
+        Intent intentForEditActivity = new Intent(this, EditTaskActivity.class);
+        intentForEditActivity.putExtra("task", selectedTask);
+        startActivity(intentForEditActivity);
     }
 }
