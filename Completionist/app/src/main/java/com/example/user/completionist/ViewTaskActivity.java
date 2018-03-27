@@ -75,8 +75,9 @@ public class ViewTaskActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(db.deleteEntry(selectedTask.getId())) {
                     Toast.makeText(context, "Task Deleted", Toast.LENGTH_SHORT).show();
-                    Intent intent2 = new Intent(context, MainActivity.class);
-                    startActivity(intent2);
+//                    Intent intent2 = new Intent(context, MainActivity.class);
+//                    startActivity(intent2);
+                    finish();
                 }
             }
         });

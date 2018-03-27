@@ -42,10 +42,11 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         Task currentTask = getItem(position);
 
-        if(listOfTasksView == null) {
+//        if(listOfTasksView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             listOfTasksView = inflater.inflate(R.layout.list_layout_tasks, parent, false);
-        }
+//        }
+//        Need to do this so colours for priority are correct - way around to retain efficiency?
 
         TextView textViewTaskTitle = listOfTasksView.findViewById(R.id.taskTitle);
         ImageView image = listOfTasksView.findViewById(R.id.priorityImage);

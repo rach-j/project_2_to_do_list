@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Task> taskList;
     private ListView listView;
     private Button addNewButton;
+    private ToggleButton priorityToggleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,18 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listViewTasks);
         addNewButton = findViewById(R.id.buttonAddNewTask);
 
-        loadEntriesFromDatabase();
+//        loadEntriesFromDatabase();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        priorityToggleButton = findViewById(R.id.togglePriorityOrder);
+        if(priorityToggleButton.isChecked()) {
+            loadEntriesFromDatabaseInPriorityOrder();
+        } else {
+            loadEntriesFromDatabase();
+        }
     }
 
     private void loadEntriesFromDatabase() {
@@ -56,7 +70,12 @@ public class MainActivity extends AppCompatActivity {
     public void onCheckBoxClicked(View view) {
         Task task = (Task) view.getTag();
                 if (db.markAsComplete(task.getId())) {
-                    loadEntriesFromDatabase();
+                    priorityToggleButton = findViewById(R.id.togglePriorityOrder);
+                    if(priorityToggleButton.isChecked()) {
+                        loadEntriesFromDatabaseInPriorityOrder();
+                    } else {
+                        loadEntriesFromDatabase();
+                    }
                     Toast.makeText(this, "Task marked as complete", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Error: task not marked as complete", Toast.LENGTH_SHORT).show();
@@ -101,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onPriorityToggleButtonClicked(View view) {
-        loadEntriesFromDatabaseInPriorityOrder();
+
+        priorityToggleButton = findViewById(R.id.togglePriorityOrder);
+        if(priorityToggleButton.isChecked()) {
+            loadEntriesFromDatabaseInPriorityOrder();
+        } else {
+            loadEntriesFromDatabase();
+        }
     }
 }

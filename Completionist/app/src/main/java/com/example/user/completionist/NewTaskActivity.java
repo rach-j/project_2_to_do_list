@@ -52,8 +52,9 @@ public class NewTaskActivity extends AppCompatActivity implements View.OnClickLi
 
         if (db.addTask(taskTitle, taskDescription, priority)) {
             Toast.makeText(this, "Task Added", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+            finish();
         } else {
             Toast.makeText(this, "Error: Task Not Added", Toast.LENGTH_SHORT).show();
         }

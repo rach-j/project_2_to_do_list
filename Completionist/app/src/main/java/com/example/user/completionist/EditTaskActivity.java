@@ -54,7 +54,9 @@ public class EditTaskActivity extends AppCompatActivity {
         if(db.editEntry(this.task.getId(), title, description, priority)) {
             Toast.makeText(this, "Task Updated", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+//            finish();
         } else {
             Toast.makeText(this, "Error: Task Not Updated", Toast.LENGTH_LONG).show();
         }
