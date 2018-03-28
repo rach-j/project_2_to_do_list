@@ -12,10 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ViewTaskActivity extends AppCompatActivity {
 
     private DatabaseHelper db;
-    TextView textViewTaskTitle, textViewTaskDescription, textViewCompletionStatus, textViewPriorityStatus;
+    TextView textViewTaskTitle, textViewTaskDescription, textViewCompletionStatus, textViewPriorityStatus, textViewDeadline;
     String completionStatus, priorityStatus;
     Button editButton;
     Task selectedTask;
@@ -35,6 +41,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         textViewTaskDescription = findViewById(R.id.viewActivityTextViewTaskDescription);
         textViewPriorityStatus = findViewById(R.id.viewActivityTextViewPriorityStatus);
         textViewCompletionStatus = findViewById(R.id.viewActivityTextViewCompletionStatus);
+        textViewDeadline = findViewById(R.id.viewActivityTextViewDeadlineLabel);
         editButton = findViewById(R.id.viewActivityButtonEdit);
 
         if (selectedTask.getCompletionStatus() == 1) {
@@ -53,9 +60,28 @@ public class ViewTaskActivity extends AppCompatActivity {
             priorityStatus = getResources().getString(R.string.no_priority);
         }
 
+        String deadline = null;
+        if (selectedTask.getDeadline().equals("")) {
+            deadline = "";
+        } else {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            Date date = null;
+            try {
+                date = sdf.parse(selectedTask.getDeadline());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+
+            deadline = dateFormat.format(date);
+        }
+
         textViewTaskTitle.setText(selectedTask.getTaskTitle());
         textViewTaskDescription.setText(selectedTask.getTaskDescription());
         textViewPriorityStatus.setText(priorityStatus);
+        textViewDeadline.setText(getResources().getString(R.string.deadline) + " " + deadline);
         textViewCompletionStatus.setText(completionStatus);
 
         if(selectedTask.getCompletionStatusForCheckBox()) {

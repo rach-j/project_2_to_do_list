@@ -1,7 +1,6 @@
 package com.example.user.completionist;
 
 import android.app.DatePickerDialog;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -26,6 +26,8 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
     Spinner editPriorityStatus;
     Button buttonConfirmAdd;
     ImageButton buttonCalendar;
+    TextView selectedDate;
+    String dateForDb;
 
     @Override
     protected void onCreate(Bundle savedInstancesState) {
@@ -38,6 +40,7 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         editPriorityStatus = findViewById(R.id.newActivitySpinnerPriorityStatus);
         buttonConfirmAdd = findViewById(R.id.newActivitySaveButton);
         buttonCalendar = findViewById(R.id.newActivityButtonCalendar);
+        selectedDate = findViewById(R.id.newActivityTextViewSelectedDeadline);
 
         editPriorityStatus.setSelection(3);
     }
@@ -59,7 +62,8 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         //      Is this okay? In my string file I've got an array of priority levels where the position in
 // the array is the same as the rating in the table (so e.g. high is level 0 in the table and also
 // position 0 in the array), but that's just because I've set it up that way. Is there a better way?
-        String deadline = "YY-MM-DD";
+
+        String deadline = dateForDb;
 
         if (taskTitle.isEmpty()) {
             editTextTaskTitle.setError("Task cannot be empty");
@@ -82,7 +86,11 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        String  selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        dateForDb = sdf.format(calendar.getTime());
+
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+        String selectedDate = dateFormat.format(calendar.getTime());
         TextView date = findViewById(R.id.newActivityTextViewSelectedDeadline);
         date.setText(selectedDate);
     }
