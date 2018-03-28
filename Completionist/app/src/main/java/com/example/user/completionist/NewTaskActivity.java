@@ -41,6 +41,7 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         buttonConfirmAdd = findViewById(R.id.newActivitySaveButton);
         buttonCalendar = findViewById(R.id.newActivityButtonCalendar);
         selectedDate = findViewById(R.id.newActivityTextViewSelectedDeadline);
+        dateForDb = null;
 
         editPriorityStatus.setSelection(3);
     }
@@ -52,7 +53,6 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
     public void onCalendarButtonClick(View view) {
         android.support.v4.app.DialogFragment datePicker = new DatePickerFragment();
         datePicker.show(getSupportFragmentManager(),"date picker");
-
     }
 
     private void addTask() {

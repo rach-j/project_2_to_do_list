@@ -61,10 +61,9 @@ public class ViewTaskActivity extends AppCompatActivity {
         }
 
         String deadline = null;
-        if (selectedTask.getDeadline().equals("")) {
-            deadline = "";
+        if (selectedTask.getDeadline() == null) {
+            deadline = getResources().getString(R.string.no_deadline_set);
         } else {
-
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
             Date date = null;

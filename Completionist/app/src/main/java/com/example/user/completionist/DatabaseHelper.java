@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "to_do_list.db";
 
     private static final String SQL_CREATE_ENTRIES =
@@ -121,5 +121,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " = ? "  + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_PRIORITY_STATUS + " ASC";
         return db.rawQuery(query, new String[]{String.valueOf(0)});
+    }
+
+    public boolean isTableEmpty() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor numberOfRows = db.rawQuery("SELECT COUNT(*) FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME, null);
+        return (numberOfRows.getCount() ==0);
     }
 }
