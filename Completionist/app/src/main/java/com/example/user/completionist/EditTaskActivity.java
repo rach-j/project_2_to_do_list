@@ -50,8 +50,9 @@ public class EditTaskActivity extends AppCompatActivity {
         String title = editTextTaskTitle.getText().toString().trim();
         String description = editTextTaskDescription.getText().toString().trim();
         Integer priority = priorityStatus.getSelectedItemPosition();
+        String deadline = "YY-MM-DD";
 
-        if(db.editEntry(task.getId(), title, description, priority)) {
+        if(db.editEntry(task.getId(), title, description, priority, deadline)) {
             Toast.makeText(this, "Task Updated", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

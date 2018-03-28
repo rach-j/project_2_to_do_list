@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "to_do_list.db";
 
     private static final String SQL_CREATE_ENTRIES =
@@ -21,7 +21,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE + " TEXT," +
                     LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION + " TEXT," +
                     LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " INTEGER," +
-                    LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " INTEGER)";
+                    LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_PRIORITY_STATUS + " INTEGER," +
+                    LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DEADLINE + " STRING)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME;
@@ -45,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public boolean addTask(String taskTitle, String taskDescription, Integer priority) {
+    public boolean addTask(String taskTitle, String taskDescription, Integer priority, String deadline) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -54,7 +55,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION, taskDescription);
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS, 0);
 //        Newly added  tasks default to not completed
-        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS, priority);
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_PRIORITY_STATUS, priority);
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DEADLINE, deadline);
 
         return db.insert(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, null, values) != -1;
 //        .insert returns -1 if table is empty so above returns true if stuff has been added and
@@ -81,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[] {String.valueOf(id)}) > 0;
     }
 
-    public boolean editEntry(int id, String title, String description, Integer priority) {
+    public boolean editEntry(int id, String title, String description, Integer priority, String deadline) {
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry._ID + " = ?";
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id)});
@@ -97,14 +99,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_TITLE, title);
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DESCRIPTION, description);
         values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS, completionStatus);
-        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS, priority);
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_PRIORITY_STATUS, priority);
+        values.put(LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_DEADLINE, deadline);
 
         return db.update(LayoutOfSchemaContract.FeedEntry.TABLE_NAME, values, LayoutOfSchemaContract.FeedEntry._ID + " = ? ", new String[]{String.valueOf(id)}) > 0;
     }
 
     public Cursor getAllTasksOrderedByPriority() {
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " ASC";
+        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_PRIORITY_STATUS + " ASC";
         return db.rawQuery(query, null);
     }
 
@@ -116,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getOnlyIncompleteTasksOrderedByPriority() {
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " = ? "  + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_PRIORITY_STATUS + " ASC";
+        String query = "SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME + " WHERE " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_COMPLETION_STATUS + " = ? "  + " ORDER BY " + LayoutOfSchemaContract.FeedEntry.COLUMN_NAME_PRIORITY_STATUS + " ASC";
         return db.rawQuery(query, new String[]{String.valueOf(0)});
     }
 }

@@ -114,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getInt(3),
-                        cursor.getInt(4)
+                        cursor.getInt(4),
+                        cursor.getString(5)
                 ));
             } while (cursor.moveToNext());
 
