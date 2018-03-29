@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textShortMessage" />
+            android:inputType="textShortMessage"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/newActivityTextViewTaskDescription"
@@ -52,13 +53,15 @@
             android:id="@+id/newActivitySpinnerPriorityStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/priorities" />
+            android:entries="@array/priorities"
+            android:paddingBottom="20dp" />
 
         <TextView
             android:id="@+id/newActivityTextViewDeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/deadline" />
+            android:text="@string/deadline"
+            android:textStyle="normal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="@string/no_deadline_set" />
+                android:text="@string/no_deadline_set"
+                android:textStyle="italic" />
 
             <ImageButton
                 android:id="@+id/newActivityButtonCalendar"

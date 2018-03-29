@@ -40,6 +40,7 @@
             android:id="@+id/editActivityEditTextTaskDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:ems="10"
             android:inputType="textShortMessage|textLongMessage" />
 
@@ -53,7 +54,8 @@
             android:id="@+id/editActivitySpinnerPriorityStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/priorities" />
+            android:entries="@array/priorities"
+            android:paddingBottom="20dp" />
 
         <TextView
             android:id="@+id/editActivityTextViewDeadline"
@@ -71,13 +73,17 @@
                 android:layout_width="336dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textStyle="italic" />
 
             <ImageButton
                 android:id="@+id/editActivityButtonCalendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:maxHeight="2dp"
+                android:maxWidth="2dp"
+                android:scaleType="fitCenter"
                 android:contentDescription="@string/calendar_description"
                 android:onClick="onCalendarButtonClick"
                 app:srcCompat="@drawable/calendar_icon2" />
@@ -87,7 +93,10 @@
         <TextView
             android:id="@+id/editActivityTextViewCompletionStatus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="24sp"
+            tools:text="Completion status" />
 
         <Button
             android:id="@+id/editActivitySaveButton"

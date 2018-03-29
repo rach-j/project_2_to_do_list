@@ -5,20 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.user.completionist.AndroidDisplayHelpers.DisplayHelper;
 import com.example.user.completionist.DatabaseTools.DatabaseHelper;
 import com.example.user.completionist.AndroidDisplayHelpers.DatePickerFragment;
 import com.example.user.completionist.R;
 import com.example.user.completionist.Task;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class EditTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
@@ -45,12 +45,15 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
 
         editTextTaskTitle.setText(task.getTaskTitle());
         editTextTaskDescription.setText(task.getTaskDescription());
+
+//        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.priorities, R.layout.spinner_style);
+//        priorityStatus.setAdapter(adapter);
+
+//        To change colour of spinner need to do the above but then default selection doesn't get set.
+
         priorityStatus.setSelection(task.getPriorityStatus());
-//      Is this okay? In my string file I've got an array of priority levels where the position in
-// the array is the same as the rating in the table (so e.g. high is level 0 in the table and also
-// position 0 in the array), but that's just because I've set it up that way. Is there a better way?
-        textViewSelectedDate.setText(getDeadlineForDisplay(task));
-        textViewTaskStatus.setText(getCompletionStatusForDisplay(task));
+        textViewSelectedDate.setText(DisplayHelper.getDeadlineForDisplay(task, this));
+        textViewTaskStatus.setText(DisplayHelper.getCompletionStatusForDisplay(task, this));
     }
 
     @Override
@@ -87,31 +90,6 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
             startActivity(intent);
         } else {
             Toast.makeText(this, "Error: Task Not Updated", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public String getCompletionStatusForDisplay(Task task) {
-        if (task.getCompletionStatus() == 1) {
-            return getResources().getString(R.string.complete_status);
-        } else {
-            return getResources().getString(R.string.not_complete_status);
-        }
-    }
-
-    public String getDeadlineForDisplay(Task task) {
-        if (task.getDeadline() == null) {
-            return getResources().getString(R.string.no_deadline_set);
-        } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = null;
-            try {
-                date = sdf.parse(task.getDeadline());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            DateFormat df = DateFormat.getDateInstance(DateFormat.FULL);
-
-            return df.format(date);
         }
     }
 

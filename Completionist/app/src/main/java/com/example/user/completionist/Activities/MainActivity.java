@@ -122,9 +122,8 @@ public class MainActivity extends AppCompatActivity {
                         cursor.getString(5)
                 ));
             } while (cursor.moveToNext());
-
-            TaskAdapter adapter = new TaskAdapter(this, R.layout.list_layout_tasks, taskList, db);
-            listView.setAdapter(adapter);
         }
+        TaskAdapter adapter = new TaskAdapter(this, R.layout.list_layout_tasks, taskList, db);
+        listView.setAdapter(adapter);
     }
 }

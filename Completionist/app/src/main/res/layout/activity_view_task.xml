@@ -17,17 +17,24 @@
             android:id="@+id/viewActivityTextViewTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold" />
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Title" />
 
         <TextView
             android:id="@+id/viewActivityTextViewTaskDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:height="120dp"
+            tools:text="Description" />
 
         <TextView
             android:id="@+id/viewActivityTextViewPriorityStatus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            tools:text="Priority status" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,13 +45,19 @@
                 android:id="@+id/viewActivityTextViewDeadlineLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/deadline" />
+                android:text="@string/deadline"
+                android:textStyle="italic" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/viewActivityTextViewCompletionStatus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="24sp"
+            tools:text="Completion status" />
 
         <Button
             android:id="@+id/viewActivityButtonEdit"

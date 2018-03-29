@@ -23,6 +23,7 @@
     <string name="no_deadline_set">No Deadline Set</string>
     <string name="calendar_description">Calendar Icon</string>
     <string name="alert_icon_for_overdue">Alert Icon For Overdue Tasks</string>
+    <string name="completionist_icon">Completionist Icon</string>
     <array name="priorities">
         <item>High</item>
         <item>Medium</item>

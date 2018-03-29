@@ -78,9 +78,6 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         String taskTitle = editTextTaskTitle.getText().toString().trim();
         String taskDescription = editTextTaskDescription.getText().toString().trim();
         Integer priority = editPriorityStatus.getSelectedItemPosition();
-        //      Is this okay? In my string file I've got an array of priority levels where the position in
-// the array is the same as the rating in the table (so e.g. high is level 0 in the table and also
-// position 0 in the array), but that's just because I've set it up that way. Is there a better way?
 
         String deadline = simpleDateFromCalendar;
 

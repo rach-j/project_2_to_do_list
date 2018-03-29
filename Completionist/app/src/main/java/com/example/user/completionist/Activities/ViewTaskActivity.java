@@ -11,13 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.user.completionist.AndroidDisplayHelpers.DisplayHelper;
 import com.example.user.completionist.DatabaseTools.DatabaseHelper;
 import com.example.user.completionist.R;
 import com.example.user.completionist.Task;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ViewTaskActivity extends AppCompatActivity {
 
@@ -46,9 +44,9 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         textViewTaskTitle.setText(selectedTask.getTaskTitle());
         textViewTaskDescription.setText(selectedTask.getTaskDescription());
-        textViewPriorityStatus.setText(getPriorityStatusForDisplay(selectedTask));
-        textViewDeadline.setText(getResources().getString(R.string.deadline) + " " + getDeadlineForDisplay(selectedTask));
-        textViewCompletionStatus.setText(getCompletionStatusForDisplay(selectedTask));
+        textViewPriorityStatus.setText(DisplayHelper.getPriorityStatusForDisplay(selectedTask, this));
+        textViewDeadline.setText(getResources().getString(R.string.deadline) + " " + DisplayHelper.getDeadlineForDisplay(selectedTask, this));
+        textViewCompletionStatus.setText(DisplayHelper.getCompletionStatusForDisplay(selectedTask, this));
 
         disableEditIfCompleted(selectedTask, editButton);
 //        Can't edit completed tasks
@@ -67,7 +65,8 @@ public class ViewTaskActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(db.deleteEntry(selectedTask.getId())) {
                     Toast.makeText(context, "Task Deleted", Toast.LENGTH_SHORT).show();
-                    finish();
+//                    finish();i
+                    ViewTaskActivity.this.finish();
                 }
             }
         });
@@ -87,44 +86,6 @@ public class ViewTaskActivity extends AppCompatActivity {
         Intent intentForEditActivity = new Intent(this, EditTaskActivity.class);
         intentForEditActivity.putExtra("task", selectedTask);
         startActivity(intentForEditActivity);
-    }
-
-    public String getCompletionStatusForDisplay(Task task) {
-        if (task.getCompletionStatus() == 1) {
-            return getResources().getString(R.string.complete_status);
-        } else {
-            return getResources().getString(R.string.not_complete_status);
-        }
-    }
-
-    public String getPriorityStatusForDisplay(Task task) {
-        if(task.getPriorityStatus() == 0) {
-            return getResources().getString(R.string.high_priority);
-        } else if(task.getPriorityStatus() == 1) {
-            return getResources().getString(R.string.medium_priority);
-        } else if (task.getPriorityStatus() == 2) {
-            return getResources().getString(R.string.low_priority);
-        } else {
-            return getResources().getString(R.string.no_priority);
-        }
-    }
-//    Better way to do this?
-
-    public String getDeadlineForDisplay(Task task) {
-        if (task.getDeadline() == null) {
-            return getResources().getString(R.string.no_deadline_set);
-        } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = null;
-            try {
-                date = sdf.parse(task.getDeadline());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            DateFormat df = DateFormat.getDateInstance(DateFormat.FULL);
-
-            return df.format(date);
-        }
     }
 
     public void disableEditIfCompleted(Task task, Button editButton) {
