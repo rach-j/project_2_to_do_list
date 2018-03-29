@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onListItemClicked(View listItem) {
         Task selectedTask = (Task) listItem.getTag();
-
         Intent intent = new Intent(this, ViewTaskActivity.class);
+
         intent.putExtra("task", selectedTask);
         startActivity(intent);
     }

@@ -52,37 +52,12 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         final CheckBox checkBoxForCompletion = listOfTasksView.findViewById(R.id.listLayoutCheckBoxCompletionStatus);
 
         textViewTaskTitle.setText(currentTask.getTaskTitle());
-
-        if (currentTask.getPriorityStatus().equals(0)) {
-            priorityImage.setImageResource(R.drawable.custom_circle_red);
-        } else if (currentTask.getPriorityStatus().equals(1)) {
-            priorityImage.setImageResource(R.drawable.custom_circle_amber);
-        } else if (currentTask.getPriorityStatus().equals(2)) {
-            priorityImage.setImageResource(R.drawable.custom_circle_green);
-        }
-
         checkBoxForCompletion.setChecked(currentTask.getCompletionStatusForCheckBox());
 
-        if (checkBoxForCompletion.isChecked()) {
-            checkBoxForCompletion.setEnabled(false);
-        } else {
-            checkBoxForCompletion.setEnabled(true);
-        }
-
-
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String currentTime = sdf.format(calendar.getTime());
-
-        if (db.isTableEmpty()) {
-        } else {
-            if (currentTask.getDeadline() != null
-                    && !currentTask.getDeadline().isEmpty()
-                    && currentTime.compareTo(currentTask.getDeadline()) > 0
-                    && !checkBoxForCompletion.isChecked() ) {
-                overdueImage.setImageResource(R.drawable.overdue_icon);
-            }
-        }
+        lockCheckBoxUponCompletion(checkBoxForCompletion);
+        
+        setPriorityIcon(currentTask, priorityImage);
+        setOverdueIcon(currentTask, checkBoxForCompletion, overdueImage);
 //              Overdue icon disappears on marking as complete as otherwise all items marked as
 // complete will eventually look overdue.
 
@@ -90,5 +65,38 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         listOfTasksView.setTag(currentTask);
 
         return listOfTasksView;
+    }
+
+    public void setPriorityIcon(Task task, ImageView priorityImage) {
+        if (task.getPriorityStatus().equals(0)) {
+            priorityImage.setImageResource(R.drawable.custom_circle_red);
+        } else if (task.getPriorityStatus().equals(1)) {
+            priorityImage.setImageResource(R.drawable.custom_circle_amber);
+        } else if (task.getPriorityStatus().equals(2)) {
+            priorityImage.setImageResource(R.drawable.custom_circle_green);
+        }
+    }
+
+    public void lockCheckBoxUponCompletion(CheckBox checkBox) {
+        if (checkBox.isChecked()) {
+            checkBox.setEnabled(false);
+        } else {
+            checkBox.setEnabled(true);
+        }
+    }
+
+    public void setOverdueIcon(Task task, CheckBox checkBox, ImageView overdueImage) {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String currentTime = sdf.format(calendar.getTime());
+
+        if (db.isTableEmpty()) {
+        } else {
+            if (task.getDeadline() != null
+                    && currentTime.compareTo(task.getDeadline()) > 0
+                    && !checkBox.isChecked() ) {
+                overdueImage.setImageResource(R.drawable.overdue_icon);
+            }
+        }
     }
 }

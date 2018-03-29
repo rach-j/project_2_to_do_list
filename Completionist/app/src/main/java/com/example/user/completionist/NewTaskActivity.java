@@ -27,7 +27,7 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
     Button buttonConfirmAdd;
     ImageButton buttonCalendar;
     TextView selectedDate;
-    String dateForDb;
+    String simpleDateFromCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstancesState) {
@@ -41,9 +41,25 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         buttonConfirmAdd = findViewById(R.id.newActivitySaveButton);
         buttonCalendar = findViewById(R.id.newActivityButtonCalendar);
         selectedDate = findViewById(R.id.newActivityTextViewSelectedDeadline);
-        dateForDb = null;
+        simpleDateFromCalendar = null;
 
         editPriorityStatus.setSelection(3);
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDateFromCalendar = sdf.format(calendar.getTime());
+
+        DateFormat df = DateFormat.getDateInstance(DateFormat.FULL);
+        TextView date = findViewById(R.id.newActivityTextViewSelectedDeadline);
+
+        date.setText(df.format(calendar.getTime()));
     }
 
     public void onAddClick(View view) {
@@ -63,7 +79,7 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
 // the array is the same as the rating in the table (so e.g. high is level 0 in the table and also
 // position 0 in the array), but that's just because I've set it up that way. Is there a better way?
 
-        String deadline = dateForDb;
+        String deadline = simpleDateFromCalendar;
 
         if (taskTitle.isEmpty()) {
             editTextTaskTitle.setError("Task cannot be empty");
@@ -77,21 +93,5 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         } else {
             Toast.makeText(this, "Error: Task Not Added", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        dateForDb = sdf.format(calendar.getTime());
-
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-        String selectedDate = dateFormat.format(calendar.getTime());
-        TextView date = findViewById(R.id.newActivityTextViewSelectedDeadline);
-        date.setText(selectedDate);
     }
 }
