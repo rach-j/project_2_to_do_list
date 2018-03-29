@@ -1,4 +1,4 @@
-package com.example.user.completionist;
+package com.example.user.completionist.Activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,11 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.user.completionist.DatabaseTools.DatabaseHelper;
+import com.example.user.completionist.R;
+import com.example.user.completionist.Task;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ViewTaskActivity extends AppCompatActivity {

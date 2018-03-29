@@ -1,4 +1,4 @@
-package com.example.user.completionist;
+package com.example.user.completionist.AndroidDisplayHelpers;
 
 /**
  * Created by user on 29/03/2018.

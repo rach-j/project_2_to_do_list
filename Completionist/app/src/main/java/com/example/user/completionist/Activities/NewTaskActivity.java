@@ -1,4 +1,4 @@
-package com.example.user.completionist;
+package com.example.user.completionist.Activities;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.user.completionist.DatabaseTools.DatabaseHelper;
+import com.example.user.completionist.AndroidDisplayHelpers.DatePickerFragment;
+import com.example.user.completionist.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

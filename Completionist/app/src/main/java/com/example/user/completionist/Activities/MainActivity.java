@@ -1,8 +1,6 @@
-package com.example.user.completionist;
+package com.example.user.completionist.Activities;
 
-import android.app.LoaderManager;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +8,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import com.example.user.completionist.DatabaseTools.DatabaseHelper;
+import com.example.user.completionist.R;
+import com.example.user.completionist.Task;
+import com.example.user.completionist.AndroidDisplayHelpers.TaskAdapter;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.user.completionist;
+package com.example.user.completionist.DatabaseTools;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -63,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        false otherwise
     }
 
-    Cursor getAllTasks() {
+    public Cursor getAllTasks() {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + LayoutOfSchemaContract.FeedEntry.TABLE_NAME, null);
     }

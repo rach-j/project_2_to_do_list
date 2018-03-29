@@ -1,4 +1,4 @@
-package com.example.user.completionist;
+package com.example.user.completionist.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.user.completionist.DatabaseTools.DatabaseHelper;
+import com.example.user.completionist.AndroidDisplayHelpers.DatePickerFragment;
+import com.example.user.completionist.R;
+import com.example.user.completionist.Task;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

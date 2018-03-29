@@ -1,4 +1,4 @@
-package com.example.user.completionist;
+package com.example.user.completionist.AndroidDisplayHelpers;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,11 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.example.user.completionist.DatabaseTools.DatabaseHelper;
+import com.example.user.completionist.R;
+import com.example.user.completionist.Task;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.PriorityQueue;
 
 /**
  * Created by user on 24/03/2018.

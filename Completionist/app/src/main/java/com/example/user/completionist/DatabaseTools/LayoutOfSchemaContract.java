@@ -1,4 +1,4 @@
-package com.example.user.completionist;
+package com.example.user.completionist.DatabaseTools;
 
 import android.provider.BaseColumns;
 

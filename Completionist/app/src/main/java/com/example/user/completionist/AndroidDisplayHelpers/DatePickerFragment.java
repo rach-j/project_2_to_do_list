@@ -1,4 +1,4 @@
-package com.example.user.completionist;
+package com.example.user.completionist.AndroidDisplayHelpers;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
