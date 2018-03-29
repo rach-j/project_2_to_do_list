@@ -22,7 +22,6 @@ public class ViewTaskActivity extends AppCompatActivity {
 
     private DatabaseHelper db;
     TextView textViewTaskTitle, textViewTaskDescription, textViewCompletionStatus, textViewPriorityStatus, textViewDeadline;
-    String completionStatus, priorityStatus;
     Button editButton;
     Task selectedTask;
 
@@ -32,8 +31,8 @@ public class ViewTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_task);
 
         db = new DatabaseHelper(this);
-
         Intent intent = getIntent();
+
         this.selectedTask = (Task) intent.getSerializableExtra("task");
         Log.d("TaskActivity", selectedTask.getTaskTitle());
 
@@ -44,50 +43,13 @@ public class ViewTaskActivity extends AppCompatActivity {
         textViewDeadline = findViewById(R.id.viewActivityTextViewDeadlineLabel);
         editButton = findViewById(R.id.viewActivityButtonEdit);
 
-        if (selectedTask.getCompletionStatus() == 1) {
-            completionStatus = getResources().getString(R.string.complete_status);
-        } else {
-            completionStatus = getResources().getString(R.string.not_complete_status);
-        }
-
-        if(selectedTask.getPriorityStatus().equals(0)) {
-            priorityStatus = getResources().getString(R.string.high_priority);
-        } else if(selectedTask.getPriorityStatus().equals(1)) {
-            priorityStatus = getResources().getString(R.string.medium_priority);
-        } else if (selectedTask.getPriorityStatus().equals(2)) {
-            priorityStatus = getResources().getString(R.string.low_priority);
-        } else {
-            priorityStatus = getResources().getString(R.string.no_priority);
-        }
-
-        String deadline = null;
-        if (selectedTask.getDeadline() == null) {
-            deadline = getResources().getString(R.string.no_deadline_set);
-        } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-            Date date = null;
-            try {
-                date = sdf.parse(selectedTask.getDeadline());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-
-            deadline = dateFormat.format(date);
-        }
-
         textViewTaskTitle.setText(selectedTask.getTaskTitle());
         textViewTaskDescription.setText(selectedTask.getTaskDescription());
-        textViewPriorityStatus.setText(priorityStatus);
-        textViewDeadline.setText(getResources().getString(R.string.deadline) + " " + deadline);
-        textViewCompletionStatus.setText(completionStatus);
+        textViewPriorityStatus.setText(getPriorityStatusForDisplay(selectedTask));
+        textViewDeadline.setText(getResources().getString(R.string.deadline) + " " + getDeadlineForDisplay(selectedTask));
+        textViewCompletionStatus.setText(getCompletionStatusForDisplay(selectedTask));
 
-        if(selectedTask.getCompletionStatusForCheckBox()) {
-            editButton.setEnabled(false);
-        } else {
-            editButton.setEnabled(true);
-        }
+        disableEditIfCompleted(selectedTask, editButton);
 //        Can't edit completed tasks
     }
 
@@ -124,5 +86,51 @@ public class ViewTaskActivity extends AppCompatActivity {
         Intent intentForEditActivity = new Intent(this, EditTaskActivity.class);
         intentForEditActivity.putExtra("task", selectedTask);
         startActivity(intentForEditActivity);
+    }
+
+    public String getCompletionStatusForDisplay(Task task) {
+        if (task.getCompletionStatus() == 1) {
+            return getResources().getString(R.string.complete_status);
+        } else {
+            return getResources().getString(R.string.not_complete_status);
+        }
+    }
+
+    public String getPriorityStatusForDisplay(Task task) {
+        if(task.getPriorityStatus() == 0) {
+            return getResources().getString(R.string.high_priority);
+        } else if(task.getPriorityStatus() == 1) {
+            return getResources().getString(R.string.medium_priority);
+        } else if (task.getPriorityStatus() == 2) {
+            return getResources().getString(R.string.low_priority);
+        } else {
+            return getResources().getString(R.string.no_priority);
+        }
+    }
+//    Better way to do this?
+
+    public String getDeadlineForDisplay(Task task) {
+        if (task.getDeadline() == null) {
+            return getResources().getString(R.string.no_deadline_set);
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = null;
+            try {
+                date = sdf.parse(task.getDeadline());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            DateFormat df = DateFormat.getDateInstance(DateFormat.FULL);
+
+            return df.format(date);
+        }
+    }
+
+    public void disableEditIfCompleted(Task task, Button editButton) {
+        if(task.getCompletionStatusForCheckBox()) {
+            editButton.setEnabled(false);
+        } else {
+            editButton.setEnabled(true);
+        }
     }
 }

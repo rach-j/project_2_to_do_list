@@ -55,7 +55,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         checkBoxForCompletion.setChecked(currentTask.getCompletionStatusForCheckBox());
 
         lockCheckBoxUponCompletion(checkBoxForCompletion);
-        
+
         setPriorityIcon(currentTask, priorityImage);
         setOverdueIcon(currentTask, checkBoxForCompletion, overdueImage);
 //              Overdue icon disappears on marking as complete as otherwise all items marked as
@@ -90,13 +90,11 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String currentTime = sdf.format(calendar.getTime());
 
-        if (db.isTableEmpty()) {
-        } else {
-            if (task.getDeadline() != null
-                    && currentTime.compareTo(task.getDeadline()) > 0
-                    && !checkBox.isChecked() ) {
-                overdueImage.setImageResource(R.drawable.overdue_icon);
+        if (!db.isTableEmpty()
+                && task.getDeadline() != null
+                && currentTime.compareTo(task.getDeadline()) > 0
+                && !checkBox.isChecked() ) {
+                    overdueImage.setImageResource(R.drawable.overdue_icon);
             }
-        }
     }
 }

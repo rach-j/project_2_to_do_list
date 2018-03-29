@@ -42,10 +42,10 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         editTextTaskTitle.setText(task.getTaskTitle());
         editTextTaskDescription.setText(task.getTaskDescription());
         priorityStatus.setSelection(task.getPriorityStatus());
-        textViewSelectedDate.setText(getDeadlineForDisplay(task));
 //      Is this okay? In my string file I've got an array of priority levels where the position in
 // the array is the same as the rating in the table (so e.g. high is level 0 in the table and also
 // position 0 in the array), but that's just because I've set it up that way. Is there a better way?
+        textViewSelectedDate.setText(getDeadlineForDisplay(task));
         textViewTaskStatus.setText(getCompletionStatusForDisplay(task));
     }
 
