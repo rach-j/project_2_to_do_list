@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +19,7 @@ import java.util.Date;
 public class EditTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     DatabaseHelper db;
-    String completionStatus, dateForDb;
+    String simpleDateFromCalendar;
     EditText editTextTaskTitle, editTextTaskDescription;
     Spinner priorityStatus;
     TextView textViewTaskStatus, textViewSelectedDate;
@@ -40,38 +39,30 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         textViewTaskStatus = findViewById(R.id.editActivityTextViewCompletionStatus);
         textViewSelectedDate = findViewById(R.id.editActivityTextViewSelectedDeadline);
 
-        if (task.getCompletionStatus() == 1) {
-            completionStatus = getResources().getString(R.string.complete_status);
-        } else {
-            completionStatus = getResources().getString(R.string.not_complete_status);
-        }
-
-        String deadline = null;
-        if (task.getDeadline() == null) {
-            deadline = getResources().getString(R.string.no_deadline_set);
-        } else {
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-            Date date = null;
-            try {
-                date = sdf.parse(task.getDeadline());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-
-            deadline = dateFormat.format(date);
-        }
-
         editTextTaskTitle.setText(task.getTaskTitle());
         editTextTaskDescription.setText(task.getTaskDescription());
         priorityStatus.setSelection(task.getPriorityStatus());
-        textViewSelectedDate.setText(deadline);
+        textViewSelectedDate.setText(getDeadlineForDisplay(task));
 //      Is this okay? In my string file I've got an array of priority levels where the position in
 // the array is the same as the rating in the table (so e.g. high is level 0 in the table and also
 // position 0 in the array), but that's just because I've set it up that way. Is there a better way?
-        textViewTaskStatus.setText(completionStatus);
+        textViewTaskStatus.setText(getCompletionStatusForDisplay(task));
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDateFromCalendar = sdf.format(calendar.getTime());
+
+        DateFormat df = DateFormat.getDateInstance(DateFormat.FULL);
+        TextView date = findViewById(R.id.editActivityTextViewSelectedDeadline);
+
+        date.setText(df.format(calendar.getTime()));
     }
 
     public void onCalendarButtonClick(View view) {
@@ -83,13 +74,7 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         String title = editTextTaskTitle.getText().toString().trim();
         String description = editTextTaskDescription.getText().toString().trim();
         Integer priority = priorityStatus.getSelectedItemPosition();
-        String deadline = null;
-
-        if (dateForDb == null) {
-            deadline = task.getDeadline();
-        } else {
-            deadline = dateForDb;
-        }
+        String deadline = getDeadlineForDatabase(simpleDateFromCalendar, task);
 
         if(db.editEntry(task.getId(), title, description, priority, deadline)) {
             Toast.makeText(this, "Task Updated", Toast.LENGTH_LONG).show();
@@ -101,19 +86,36 @@ public class EditTaskActivity extends AppCompatActivity implements DatePickerDia
         }
     }
 
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
+    public String getCompletionStatusForDisplay(Task task) {
+        if (task.getCompletionStatus() == 1) {
+            return getResources().getString(R.string.complete_status);
+        } else {
+            return getResources().getString(R.string.not_complete_status);
+        }
+    }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        dateForDb = sdf.format(calendar.getTime());
+    public String getDeadlineForDisplay(Task task) {
+        if (task.getDeadline() == null) {
+            return getResources().getString(R.string.no_deadline_set);
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = null;
+            try {
+                date = sdf.parse(task.getDeadline());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            DateFormat df = DateFormat.getDateInstance(DateFormat.FULL);
 
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-        String selectedDate = dateFormat.format(calendar.getTime());
-        TextView date = findViewById(R.id.editActivityTextViewSelectedDeadline);
-        date.setText(selectedDate);
+            return df.format(date);
+        }
+    }
+
+    public String getDeadlineForDatabase(String simpleDateFromCalendar, Task task) {
+        if (simpleDateFromCalendar == null) {
+            return task.getDeadline();
+        } else {
+            return simpleDateFromCalendar;
+        }
     }
 }

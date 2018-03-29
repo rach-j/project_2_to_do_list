@@ -76,10 +76,15 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         if (db.isTableEmpty()) {
         } else {
-            if (currentTask.getDeadline() != null && !currentTask.getDeadline().isEmpty() && currentTime.compareTo(currentTask.getDeadline()) > 0) {
+            if (currentTask.getDeadline() != null
+                    && !currentTask.getDeadline().isEmpty()
+                    && currentTime.compareTo(currentTask.getDeadline()) > 0
+                    && !checkBoxForCompletion.isChecked() ) {
                 overdueImage.setImageResource(R.drawable.overdue_icon);
             }
         }
+//              Overdue icon disappears on marking as complete as otherwise all items marked as
+// complete will eventually look overdue.
 
         checkBoxForCompletion.setTag(currentTask);
         listOfTasksView.setTag(currentTask);
