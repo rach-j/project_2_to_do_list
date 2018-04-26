@@ -50,6 +50,6 @@ This is available to download online.
 ### To run
 
 * Download this project (this can be done using the command `$git clone https://github.com/rach-j/to-do-list-android-app.git`)
-* Open Android Studio then in Android Studio open the folder called 'Completionist' within the downloaded project
-* Make sure 'app' is selected in the dropdown menu on the right hand side in the toolbar then press the green arrow button to the right.
+* Open Android Studio then from Android Studio open the folder called 'Completionist' within the downloaded project
+* Make sure 'app' is selected in the dropdown menu on the right hand side in the toolbar then press the green arrow button to the right
 * Select the virtual device you want to run the app on and click OK
