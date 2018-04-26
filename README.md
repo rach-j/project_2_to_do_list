@@ -17,6 +17,22 @@ Users can:
 
 ## Screenshots
 
-### Homepage showing all tasks
+### Initial view showing all incomplete tasks
 
-![
+![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-homepage.png)
+
+### View showing tasks sorted by priority
+
+![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-ordered-by-priority.png)
+
+### View showing all tasks (complete and incomplete) sorted by priority
+
+![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-ordered-by-priority-and-showing-completed-tasks.png)
+
+### Add new task view
+
+![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-add-new-task.png)
+
+### Edit task view
+
+![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-edit-task.png)
