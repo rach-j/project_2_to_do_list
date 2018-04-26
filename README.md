@@ -19,7 +19,7 @@ Users can:
 
 ### Initial view showing all incomplete tasks
 
-Tasks with an ! icon are overview. Red / Amber / Green circles indicate High / Medium / Low priority. Tasks can be marked as complete by clicking on the check box.
+Overdue tasks are shown with an ! icon. Red / Amber / Green circles indicate High / Medium / Low priority. Tasks can be marked as complete by clicking on the check box to the right of the task.
 
 <img src="https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-homepage.png" width="300">
 
