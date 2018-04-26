@@ -19,6 +19,8 @@ Users can:
 
 ### Initial view showing all incomplete tasks
 
+<src="https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-homepage.png" width=200>
+
 ![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-homepage.png)
 
 ### View showing tasks sorted by priority
