@@ -19,7 +19,7 @@ Users can:
 
 ### Initial view showing all incomplete tasks
 
-<img src="https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-homepage.png" width="200">
+<img src="https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-homepage.png" width="300">
 
 ![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-homepage.png)
 
