@@ -21,20 +21,18 @@ Users can:
 
 <img src="https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-homepage.png" width="300">
 
-![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-homepage.png)
-
 ### View showing tasks sorted by priority
 
-![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-ordered-by-priority.png)
+<img src="https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-ordered-by-priority.png" width = "300">
 
 ### View showing all tasks (complete and incomplete) sorted by priority
 
-![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-ordered-by-priority-and-showing-completed-tasks.png)
+<img src="https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-ordered-by-priority-and-showing-completed-tasks.png" width = "300">
 
 ### Add new task view
 
-![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-add-new-task.png)
+<img src="https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-add-new-task.png" width="300">
 
 ### Edit task view
 
-![Screenshot](https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-edit-task.png)
+<img src="https://github.com/rach-j/to-do-list-android-app/blob/master/screenshots_for_README/Screenshot-edit-task.png" width="300">
